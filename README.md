@@ -1,2 +1,2 @@
 # die
-THIS MIGHT BREAK YOUR COMPUTER (or just just task manager)
+this is basicly "You Are An Idiot" Virus but new
